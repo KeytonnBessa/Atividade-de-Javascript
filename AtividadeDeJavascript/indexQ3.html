@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inverter Texto</title>
+    <script>
+        function inverterTexto() {
+            var textoOriginal = document.getElementById('textoOriginal').value;
+
+            var palavras = textoOriginal.split(/\s+/);
+
+            var textoInvertido = palavras.reverse().join(' ');
+
+            document.getElementById('textoInvertido').value = textoInvertido;
+        }
+    </script>
+</head>
+<body>
+    <h1>Inverter Palavras</h1>
+    <textarea id="textoOriginal" rows="5" cols="40" placeholder="Digite seu texto aqui..."></textarea>
+    <br>
+    <textarea id="textoInvertido" rows="5" cols="40" placeholder="Resultado invertido aparecerá aqui..."></textarea>
+    <br>
+    <button onclick="inverterTexto()">Inverter</button>
+</body>
+</html>

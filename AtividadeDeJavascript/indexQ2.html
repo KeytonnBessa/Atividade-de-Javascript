@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        let timerId = null;
+
+        function Iniciar() {
+            const texto = document.getElementById("texto");
+            if (timerId === null) { 
+                timerId = setInterval(() => {
+                    let atual = texto.value;
+                    atual = atual.substring(1) + atual[0]; 
+                    texto.value = atual;
+                }, 200); 
+            }
+        }
+
+        function Interromper() {
+            if (timerId !== null) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="texto" value="Teste teste testando teste " size="50">
+    <button onclick="Iniciar()">Iniciar Rolagem</button>
+    <button onclick="Interromper()">Parar Rolagem</button>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Q4</title>
+    <style>
+        .button {
+            width: 60px;
+            height: 30px;
+            margin: 2px;
+        }
+        #display {
+            width: 242px;
+            margin: 5px;
+            font-size: 16px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>CALCULADORA</h1>
+    <input type="text" id="display" readonly><br>
+    <button class="button" onclick="adicionarNumero('1')">1</button>
+    <button class="button" onclick="adicionarNumero('2')">2</button>
+    <button class="button" onclick="adicionarNumero('3')">3</button>
+    <button class="button" onclick="escolherOperacao('+')">+</button><br>
+    <button class="button" onclick="adicionarNumero('4')">4</button>
+    <button class="button" onclick="adicionarNumero('5')">5</button>
+    <button class="button" onclick="adicionarNumero('6')">6</button>
+    <button class="button" onclick="escolherOperacao('-')">-</button><br>
+    <button class="button" onclick="adicionarNumero('7')">7</button>
+    <button class="button" onclick="adicionarNumero('8')">8</button>
+    <button class="button" onclick="adicionarNumero('9')">9</button>
+    <button class="button" onclick="escolherOperacao('*')">*</button><br>
+    <button class="button" onclick="adicionarNumero('0')">0</button>
+    <button class="button" onclick="calcular()">=</button>
+    <button class="button" onclick="escolherOperacao('/')">/</button>
+    <button class="button" onclick="limparTela()">Limpar</button><br>
+    <button class="button" onclick="escolherOperacao('%')">%</button>
+    <button class="button" onclick="escolherOperacao('log')">log</button>
+    <button class="button" onclick="escolherOperacao('exp')">exp</button>
+    <button class="button" onclick="escolherOperacao('sqrt')">√</button><br>
+    <button class="button" onclick="escolherOperacao('fact')">n!</button>
+    <button class="button" onclick="escolherOperacao('sin')">sin</button>
+    <button class="button" onclick="escolherOperacao('cos')">cos</button>
+    <button class="button" onclick="escolherOperacao('tan')">tan</button><br>
+    <button class="button" onclick="escolherOperacao('tanh')">tanh</button>
+    <button class="button" onclick="escolherOperacao('sinh')">sinh</button>
+    <button class="button" onclick="escolherOperacao('cosh')">cosh</button>
+
+    <script>
+        let display = document.getElementById('display');
+        let operacao = '';
+        let inputAtual = '';
+        let primeiroNumero = '';
+
+        function adicionarNumero(number) {
+            inputAtual += number;
+            display.value = inputAtual;
+        }
+
+        function escolherOperacao(op) {
+            if (inputAtual) {
+                primeiroNumero = inputAtual;
+                operacao = op;
+                display.value = primeiroNumero + ' ' + op + ' ';
+                inputAtual = '';
+            }
+        }
+
+        function calcular() {
+            let segundoNumero = inputAtual;
+            let result;
+            switch (operacao) {
+                case '+': result = parseFloat(primeiroNumero) + parseFloat(segundoNumero); break;
+                case '-': result = parseFloat(primeiroNumero) - parseFloat(segundoNumero); break;
+                case '*': result = parseFloat(primeiroNumero) * parseFloat(segundoNumero); break;
+                case '/': result = parseFloat(primeiroNumero) / parseFloat(segundoNumero); break;
+                case '%': result = parseFloat(primeiroNumero) * (parseFloat(segundoNumero) / 100); break;
+                case 'log': result = Math.log10(parseFloat(primeiroNumero)); break;
+                case 'exp': result = Math.exp(parseFloat(primeiroNumero)); break;
+                case 'sqrt': result = Math.sqrt(parseFloat(primeiroNumero)); break;
+                case 'fact': result = factorial(parseFloat(primeiroNumero)); break;
+                case 'sin': result = Math.sin(parseFloat(primeiroNumero) * Math.PI / 180); break; // Assume degrees
+                case 'cos': result = Math.cos(parseFloat(primeiroNumero) * Math.PI / 180); break; // Assume degrees
+                case 'tan': result = Math.tan(parseFloat(primeiroNumero) * Math.PI / 180); break; // Assume degrees
+                case 'tanh': result = Math.tanh(parseFloat(primeiroNumero)); break;
+                case 'sinh': result = Math.sinh(parseFloat(primeiroNumero)); break;
+                case 'cosh': result = Math.cosh(parseFloat(primeiroNumero)); break;
+                default: return;
+            }
+            display.value = result;
+            inputAtual = result.toString();
+            operacao = '';
+            primeiroNumero = '';
+        }
+
+        function factorial(num) {
+            if (num === 0 || num === 1) return 1;
+            for (let i = num - 1; i >= 1; i--) {
+                num *= i;
+            }
+            return num;
+        }
+
+        function limparTela() {
+            display.value = '';
+            inputAtual = '';
+            operacao = '';
+            primeiroNumero = '';
+        }
+    </script>
+</body>
+</html>

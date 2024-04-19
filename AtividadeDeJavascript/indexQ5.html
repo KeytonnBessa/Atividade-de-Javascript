@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+
+
+
+
+    <script>
+
+        /*const aNumber = Date(window.prompt("Informe uma data:", ""));
+
+        function validaData(valor){
+            if(typeof valor !== 'string'){
+                //window.alert("Informe um data válida")
+                return false
+            }
+
+            if (!/^\d{2}\/\d{2}\/\d{4}$/.test(valor)) {
+                //window.alert("Informe um data com formato válido")
+                return false
+            }
+            const partesData = valor.split('/')
+            const data = { 
+                dia: partesData[0], 
+                mes: partesData[1], 
+                ano: partesData[2] 
+            }
+
+            const dia = parseInt(data.dia)
+            const mes = parseInt(data.mes)
+            const ano = parseInt(data.ano)
+
+            const diasNoMes = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+
+
+            if(ano % 400 === 0 || ano % 4 === 0 && ano % 100 !== 0){
+                diasNoMes[2] = 29;
+            }
+
+            if(mes < 1 || ano > 12 || dia < 1){
+                return false
+            } else if (dia > diasNoMes[mes]) {
+                return false
+            }
+
+            return true
+        }
+
+        function teste(){
+            if(validaData){
+                
+            }
+        }*/
+        function solicitarData() {
+    while (true) {
+        var dataString = prompt("Digite uma data no formato dd/mm/aaaa:");
+        if (/^\d{2}\/\d{2}\/\d{4}$/.test(dataString)) {
+            var partes = dataString.split('/');
+            var dia = parseInt(partes[0], 10);
+            var mes = parseInt(partes[1], 10) - 1; 
+            var ano = parseInt(partes[2], 10);
+
+            var data = new Date(ano, mes, dia);
+
+            if (data.getFullYear() === ano && data.getMonth() === mes && data.getDate() === dia) {
+                return data;
+            }
+        }
+        alert("Formato de data inválido. Por favor, use o formato dd/mm/aaaa.");
+    }
+}
+
+function calcularDiferenca(data) {
+    var hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); 
+
+    var diferenca = data - hoje;
+    var dias = diferenca / (1000 * 60 * 60 * 24);
+
+    var anos = data.getFullYear() - hoje.getFullYear();
+    var meses = (data.getMonth() - hoje.getMonth()) + (anos * 12);
+    anos = Math.round(dias/360)
+    meses = Math.round((dias % 360)/ 30)
+    dias = Math.round((dias % 360)% 30)
+    if (data.getDate() < hoje.getDate()) {
+        meses--;
+    }
+
+    if (data < hoje) {
+        dias = Math.ceil(dias);
+        anos = data.getFullYear() - hoje.getFullYear();
+        if (data.getMonth() < hoje.getMonth() || (data.getMonth() === hoje.getMonth() && data.getDate() < hoje.getDate())) {
+            anos--;
+        }
+        meses = (data.getMonth() - hoje.getMonth()) + (anos * 12);
+        if (data.getDate() < hoje.getDate()) {
+            meses--;
+        }
+    } else {
+        dias = Math.floor(dias);
+    }
+
+    return { dias, meses, anos };
+}
+
+function mostrarDiferenca() {
+    var data = solicitarData();
+    var { dias, meses, anos } = calcularDiferenca(data);
+
+    document.write(`Faltam ${dias} dias, ${meses} meses e ${anos} anos até a data ${data.toLocaleDateString()}.`);
+}
+
+mostrarDiferenca();
+
+
+    </script>
+</body>
+</html>
